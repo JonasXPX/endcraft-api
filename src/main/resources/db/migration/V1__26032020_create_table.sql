@@ -1,0 +1,4 @@
+CREATE TABLE archive (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(255)
+)
