@@ -21,4 +21,7 @@ public class Archive {
     @Size(max = 255, message = "error.archive.code.max")
     private String code;
 
+    @Size(max = 255, message = "error.archive.file_name.max")
+    private String fileName;
+
 }

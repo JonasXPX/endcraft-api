@@ -3,7 +3,13 @@ package br.com.endcraft.endcraftapi.archive.service;
 import br.com.endcraft.endcraftapi.archive.data.ArchiveRepository;
 import br.com.endcraft.endcraftapi.archive.Archive;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @AllArgsConstructor
 @Service
@@ -15,4 +21,12 @@ public class ArchiveService {
         return archiveRepository.findArchiveByCodeLike(code);
     }
 
+    @SneakyThrows
+    public ByteArrayResource getFileFromHomeDirectory(Archive archive) {
+        String home = System.getProperty("user.home");
+        Path path = Paths.get(home + "/" + archive.getFileName());
+        byte[] fileBytes = Files.readAllBytes(path);
+        archiveRepository.updateDownloadTimes(archive.getId());
+        return new ByteArrayResource(fileBytes);
+    }
 }
