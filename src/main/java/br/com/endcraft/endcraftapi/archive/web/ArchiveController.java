@@ -1,7 +1,9 @@
 package br.com.endcraft.endcraftapi.archive.web;
 
 import br.com.endcraft.endcraftapi.archive.Archive;
+import br.com.endcraft.endcraftapi.archive.Version;
 import br.com.endcraft.endcraftapi.archive.service.ArchiveService;
+import br.com.endcraft.endcraftapi.archive.service.VersionService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -10,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("archive")
@@ -21,20 +20,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class ArchiveController {
 
     private ArchiveService archiveService;
+    private VersionService versionService;
 
     @GetMapping("{code}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String code) {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String code, Version version) {
         Archive archive = archiveService.findArchiveByCode(code);
-        ByteArrayResource file = archiveService.getFileFromHomeDirectory(archive);
+        ByteArrayResource file = archiveService.getFileFromHomeDirectory(archive, version);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + archive.getFileName())
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + version.getFileName())
                 .body(file);
     }
 
-    @GetMapping
-    public Page<Archive> findAll(Pageable pageable){
-        return archiveService.findAll(pageable);
+    @GetMapping("/versions/{code}")
+    public ResponseEntity<Page<Version>> findFileVersion(@PathVariable String code, Pageable pageable) {
+        Archive archive = archiveService.findArchiveByCode(code);
+        return ResponseEntity.ok(versionService.findVersionsByArchive(archive, pageable));
     }
+
 }

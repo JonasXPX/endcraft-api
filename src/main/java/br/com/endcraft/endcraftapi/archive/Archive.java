@@ -1,18 +1,27 @@
 package br.com.endcraft.endcraftapi.archive;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Setter
 @Getter
-public class Archive {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@NamedEntityGraph(
+        name = "graph.archive",
+        attributeNodes = {
+                @NamedAttributeNode("fileVersions")
+        })
+public class Archive implements Serializable {
+
+
+    private static final long serialVersionUID = -3621344448808482265L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,9 +30,7 @@ public class Archive {
     @Size(max = 255, message = "error.archive.code.max")
     private String code;
 
-    @Size(max = 255, message = "error.archive.file_name.max")
-    private String fileName;
-
-    private String version;
+    @OneToMany(mappedBy = "archive", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Version> fileVersions;
 
 }

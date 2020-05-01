@@ -17,19 +17,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "classpath:/initial/database.xml")
 @DatabaseTearDown("classpath:/tearDown/tearDown.xml")
-class EndcraftApiApplicationTests extends BaseService{
+class ArchiveServiceTest extends BaseService{
 
 	@Autowired
 	ArchiveService archiveService;
 
 	@Test
-	void contextLoads() {
+	void shouldFindArchiveByCode() {
 		Archive test = archiveService.findArchiveByCode("TEST");
 
 		assertThat(test).isNotNull();
 		assertThat(test.getId()).isEqualTo(99999L);
-		assertThat(test.getVersion()).isEqualTo("99.99V");
-
+		assertThat(test.getFileVersions()).isNotEmpty();
 	}
 
 }

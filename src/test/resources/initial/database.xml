@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dataset>
-    <archive id="99999" code="TEST" file_name="test.zip" version="99.99V"/>
+    <archive id="99999" code="TEST" />
+    <version id="99999" id_archive="99999" file_name="test.zip" version="99.99V"/>
+    <version id="99998" id_archive="99999" file_name="test_low.zip" version="99.98V"/>
 </dataset>

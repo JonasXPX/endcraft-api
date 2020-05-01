@@ -1,5 +1,6 @@
 package br.com.endcraft.endcraftapi.archive.service;
 
+import br.com.endcraft.endcraftapi.archive.Version;
 import br.com.endcraft.endcraftapi.archive.data.ArchiveRepository;
 import br.com.endcraft.endcraftapi.archive.Archive;
 import lombok.AllArgsConstructor;
@@ -28,9 +29,9 @@ public class ArchiveService {
     }
 
     @SneakyThrows
-    public ByteArrayResource getFileFromHomeDirectory(Archive archive) {
+    public ByteArrayResource getFileFromHomeDirectory(Archive archive, Version version) {
         String home = System.getProperty("user.home");
-        Path path = Paths.get(home + "/" + archive.getFileName());
+        Path path = Paths.get(home + "/" + version.getFileName());
         byte[] fileBytes = Files.readAllBytes(path);
         archiveRepository.updateDownloadTimes(archive.getId());
         return new ByteArrayResource(fileBytes);
