@@ -5,6 +5,8 @@ import br.com.endcraft.endcraftapi.archive.service.ArchiveService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +31,10 @@ public class ArchiveController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + archive.getFileName())
                 .body(file);
+    }
+
+    @GetMapping
+    public Page<Archive> findAll(Pageable pageable){
+        return archiveService.findAll(pageable);
     }
 }

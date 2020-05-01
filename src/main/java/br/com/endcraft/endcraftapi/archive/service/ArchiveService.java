@@ -5,6 +5,8 @@ import br.com.endcraft.endcraftapi.archive.Archive;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
@@ -16,6 +18,10 @@ import java.nio.file.Paths;
 public class ArchiveService {
 
     private ArchiveRepository archiveRepository;
+
+    public Page<Archive> findAll(Pageable pageable){
+        return archiveRepository.findAll(pageable);
+    }
 
     public Archive findArchiveByCode(String code) {
         return archiveRepository.findArchiveByCodeLike(code);
