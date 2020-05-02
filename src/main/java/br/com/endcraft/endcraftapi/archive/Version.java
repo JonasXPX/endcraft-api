@@ -1,5 +1,6 @@
 package br.com.endcraft.endcraftapi.archive;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Version implements Serializable {
 
     @JoinColumn(name = "id_archive")
     @ManyToOne
+    @JsonBackReference
     private Archive archive;
 
     @Size(max = 255, message = "error.archive.file_name.max")
