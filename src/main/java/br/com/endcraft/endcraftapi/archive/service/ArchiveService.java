@@ -20,10 +20,6 @@ public class ArchiveService {
 
     private ArchiveRepository archiveRepository;
 
-    public Page<Archive> findAll(Pageable pageable){
-        return archiveRepository.findAll(pageable);
-    }
-
     public Archive findArchiveByCode(String code) {
         return archiveRepository.findArchiveByCodeLike(code);
     }
