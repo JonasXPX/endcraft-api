@@ -2,7 +2,7 @@ FROM openjdk:11
 
 ENV DB_USERNAME=endcraft
 ENV DB_PASSWORD=hackme
-ENV DB_URL=jdbc:mysql://mysql/endcraft?serverTime=UTC
+ENV DB_URL=jdbc:mysql://localhost/endcraft?serverTime=UTC
 ENV DB_NAME=endcraft
 
 WORKDIR /app
