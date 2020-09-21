@@ -24,7 +24,7 @@ jobs:
       run: |
         sudo apt-get install -y mysql-client
         sudo /etc/init.d/mysql start
-        mysql --host $DATABASE_HOST --port 3306 -uendcraft -pendcraft -e "SHOW DATABASES"
+        mysql --host $DATABASE_HOST --port 3306 -uendcraft -phackme -e "SHOW DATABASES"
       env:
         DATABASE_HOST: localhost
     - uses: actions/checkout@v2
