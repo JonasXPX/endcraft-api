@@ -20,11 +20,9 @@ jobs:
           MYSQL_USER: endcraft
           MYSQL_PASSWORD: hackme
     steps:
-    - name: test mysql connection
+    - name: Start mysql service
       run: |
-        sudo apt-get install -y mysql-client
         sudo /etc/init.d/mysql start
-        mysql --host $DATABASE_HOST --port 3306 -uendcraft -phackme -e "SHOW DATABASES"
       env:
         DATABASE_HOST: localhost
     - uses: actions/checkout@v2
