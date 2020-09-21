@@ -19,8 +19,6 @@ jobs:
           MYSQL_DATABASE: endcraft
           MYSQL_USER: endcraft
           MYSQL_PASSWORD: hackme
-        ports:
-          - 3306:3306
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.11
@@ -30,4 +28,4 @@ jobs:
     - name: test with Maven
       run: mvn test --file pom.xml
       env:
-        DATABASE_HOST: localhost
+        DATABASE_HOST: mysql
