@@ -30,4 +30,4 @@ jobs:
     - name: test with Maven
       run: mvn test --file pom.xml
       env:
-        DATABASE_HOST: ${{job.services.mysql.id}}
+        DATABASE_HOST: localhost
