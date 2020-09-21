@@ -27,9 +27,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-    - name: link docker network
-      run: docker 
     - name: test with Maven
       run: mvn test --file pom.xml
       env:
-        DATABASE_HOST: mysql
+        DATABASE_HOST: ${{job.container.network}}
