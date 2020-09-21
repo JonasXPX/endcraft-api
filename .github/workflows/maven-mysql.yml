@@ -23,6 +23,7 @@ jobs:
     - name: test mysql connection
       run: |
         sudo apt-get install -y mysql-client
+        sudo /etc/init.d/mysql start
         mysql --host $DATABASE_HOST --port 3306 -uendcraft -pendcraft -e "SHOW DATABASES"
       env:
         DATABASE_HOST: localhost
@@ -34,4 +35,4 @@ jobs:
     - name: test with Maven
       run: mvn test --file pom.xml
       env:
-        DATABASE_HOST: mysql
+        DATABASE_HOST: localhost
