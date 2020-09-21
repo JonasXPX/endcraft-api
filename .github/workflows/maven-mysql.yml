@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     services:
       mysql:
         image: mysql
@@ -20,11 +20,6 @@ jobs:
           MYSQL_USER: endcraft
           MYSQL_PASSWORD: hackme
     steps:
-    - name: Start mysql service
-      run: |
-        sudo /etc/init.d/mysql start
-      env:
-        DATABASE_HOST: localhost
     - uses: actions/checkout@v2
     - name: Set up JDK 1.11
       uses: actions/setup-java@v1
